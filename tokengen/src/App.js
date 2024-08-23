@@ -24,10 +24,22 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function App() {
 
-  function BlueRow() {
-    return (
-      <React.Fragment>
-      <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'center' }}>
+  const handleGenerated = () => {}
+  const handleClear = () => {}
+
+  const [blueTokens, setBlueTokens] = useState(0);
+  const [bluePrefix, setBluePrefix] = useState('');
+  const [bluePerRow, setBluePerRow] = useState(1);
+  const [redTokens, setRedTokens] = useState(0);
+  const [redPrefix, setRedPrefix] = useState('');
+  const [redPerRow, setRedPerRow] = useState(1);
+  const [generatedTokens, setGeneratedTokens] = useState([]); //stores generated tokens
+
+  return (
+    <>
+     
+      
+     <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'center' }}>
         <TextField
           id="outlined-number"
           label="Number of blue tokens"
@@ -38,6 +50,7 @@ function App() {
           }}
           sx={{ paddingRight: '8px', marginTop: '20px' }}
         />
+        <h1>{blueTokens}</h1>
       </Grid>
       <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'center' }}>
         <TextField
@@ -63,17 +76,10 @@ function App() {
           sx={{ paddingRight: '8px', marginTop: '20px' }}
         />
       </Grid>
-    </React.Fragment>
-    );
-  }
-
-  function RedRow() {
-    return (
-      <React.Fragment>
       <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'center' }}>
         <TextField
           id="outlined-number"
-          label="Number of Red tokens"
+          label="Number of red tokens"
           type="number"
           onChange={(e) => setRedTokens(Number(e.target.value))}
           InputLabelProps={{
@@ -106,31 +112,12 @@ function App() {
           sx={{ paddingRight: '8px', marginTop: '20px' }}
         />
       </Grid>
-    </React.Fragment>
-    );
-  }
-
-  const [blueTokens, setBlueTokens] = useState(0);
-  const [bluePrefix, setBluePrefix] = useState('');
-  const [bluePerRow, setBluePerRow] = useState(1);
-  const [redTokens, setRedTokens] = useState(0);
-  const [redPrefix, setRedPrefix] = useState('');
-  const [redPerRow, setRedPerRow] = useState(1);
-  const [generatedTokens, setGeneratedTokens] = useState([]);
-
-  return (
-    <>
-     
-      
-      <Container fixed>
-      <BlueRow/>
-      <RedRow/>
-      <Box sx={{alignItems:"center", marginLeft:'34vw' , marginTop:"3vw"}}>
-      <Button  variant="outlined">Generate</Button>
-      <Button variant="outlined">Clear</Button>
-      </Box>
-      
-      </Container>
+      <Button variant="outlined" onClick={handleGenerated}>
+        Generate
+      </Button>
+      <Button variant="outlined" onClick={handleClear}>
+        Clear
+      </Button>
     </>
   );
 }
