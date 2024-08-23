@@ -147,7 +147,8 @@ function App() {
 
       <div>
         <Grid container spacing={2} style={{ marginTop: '20px' }}>
-          {generatedTokens.filter((token) => token.color === 'blue')
+          {generatedTokens
+          .filter((token) => token.color === 'blue')
             .map((token, index) => (
               <Grid item xs={12 / bluePerRow} key={index}>
                 <Box
@@ -167,11 +168,18 @@ function App() {
               </Grid>
             ))}
 
+            {generatedTokens.some((token) => token.color === "red") &&
+            (
+              <Grid xs={12}>
+                <hr style={{borderColor: "Transparent"}} />
+              </Grid>
+            )}
+
             
           {generatedTokens
             .filter((token) => token.color === 'red')
             .map((token, index) => (
-              <Grid item xs={8 / redPerRow} key={index}>
+              <Grid item xs={12 / redPerRow} key={index}>
                 <Box
                   sx={{
                     backgroundColor: 'red',
