@@ -2,38 +2,15 @@
 import './App.css';
 import TextField from '@mui/material/TextField';
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import { useState } from 'react';
-// import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import Typography from '@mui/material/Typography';
 import Slider from '@mui/material/Slider';
 
-import { createTheme } from '@mui/material/styles';
-import { purple } from '@mui/material/colors';
-
-import { shadows } from '@mui/system';
-
-
-
-
-
 function App() {
-
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: purple[500],
-      }
-    }
-  });
-
-
 
   const [blueTokens, setBlueTokens] = useState();
   const [bluePrefix, setBluePrefix] = useState('');
@@ -43,20 +20,20 @@ function App() {
   const [redPerRow, setRedPerRow] = useState(1);
   const [generatedTokens, setGeneratedTokens] = useState([]); //stores generated tokens
 
-  const handleGenerated = () => {
+  const handleGenerated = () => { // function to generate and store new token
     const newToken = [];
     for (let i = 0; i < blueTokens; i++) {
-      newToken.push({ color: 'blue', label: `${bluePrefix}${i + 1}` });
+      newToken.push({ color: 'blue', label: `${bluePrefix} ${i + 1}` });
     }
 
     for (let i = 0; i < redTokens; i++) {
-      newToken.push({ color: 'red', label: `${redPrefix}${i + 1}` });
+      newToken.push({ color: 'red', label: `${redPrefix} ${i + 1}` });
     }
 
     setGeneratedTokens(newToken); // pushes the newToken generatedTokens array
   };
 
-  const handleClear = () => {
+  const handleClear = () => { //function to clear all token data
     setBluePerRow(1);
     setBluePrefix('');
     setBlueTokens();
@@ -67,21 +44,11 @@ function App() {
   };
 
 
-  const handleSliderChange = (event, newValue) => {
-    setBlueTokens(newValue);
-  };
-
-  const handleInputChange = (event) => {
-    const value = event.target.value === '' ? '' : Number(event.target.value);
-    setBlueTokens(value);
-  };
+ 
   return (
     <>
       <div style={{ backgroundColor: '#e8eaf6', height: '100vw' }}>
         <Container maxWidth='md' sx={{ borderRadius: '3vh', marginTop: '2px' }} >
-
-
-
           <Container maxWidth="sm" sx={{ backgroundColor: '#dcdff2', borderRadius: '3vh', paddingBottom: '3vh', boxShadow: 6}}>
             <Grid xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
               <Typography variant="h2" gutterBottom sx={{ color: "#35373f" }}>
@@ -103,9 +70,7 @@ function App() {
                     sx={{ paddingRight: '8px', marginTop: '20px' }}
                   />
 
-
                 </Grid>
-
                 <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
                   <TextField
                     id="outlined-number"
@@ -180,34 +145,24 @@ function App() {
                   </Container>
                 </Grid>
               </Grid>
-
             </Grid>
           </Container>
-
-
-
-
-
+            {/*              Buttons                */}
           <Container sx={{
             marginTop: "1vw", display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            <ButtonGroup variant="text" aria-label="Basic button group" >
-              <Button variant='contained' sx={{backgroundColor:'#b3bbe4', color:'#363844',boxShadow: 7}} onClick={handleGenerated}>
+            justifyContent: 'center'}}>
+            
+              <Button variant='contained' sx={{backgroundColor:'#b3bbe4', color:'#363844',boxShadow: 8, marginRight:'1vw', ':hover':{bgcolor: '#ced3edb3', color:'#363844'}}} onClick={handleGenerated}>
                 Generate
               </Button>
-              <Button variant='contained' sx={{color:'white', backgroundColor:'#b3bbe4',boxShadow: 7}} onClick={handleClear}>
+              <Button variant='contained' sx={{color:'White', backgroundColor:'#b3bbe4',boxShadow: 8, marginLeft:'1vw', ':hover':{bgcolor: '#ced3edb3', color:'#363844'}}} onClick={handleClear} onTouch>
                 Clear
               </Button>
 
-            </ButtonGroup>
           </Container>
 
-
-
-          {/* rendering boxes / tokens */}
-
+          {/*      rendering boxes / tokens      */}
 
           <div style={{ marginTop: "1vw" }}>
             <Grid
@@ -220,9 +175,9 @@ function App() {
                 textAlign: 'center', // Center text within the boxes
               }}
             >
-              {generatedTokens
-                .filter((token) => token.color === 'blue')
-                .map((token, index) => (
+              {generatedTokens      
+                .filter((token) => token.color === 'blue')  //filtering the tokoens by their colour
+                .map((token, index) => (                    // mapping filtered tokens by their indices
                   <Grid item xs={12 / bluePerRow} key={index}>
                     <Box
                       sx={{
@@ -243,7 +198,7 @@ function App() {
                   </Grid>
                 ))}
 
-              {generatedTokens.some((token) => token.color === 'red') && (
+              {generatedTokens.some((token) => token.color === 'red') && (  //seperates blue and red token area 
                 <Grid item xs={12}>
                   <hr style={{ borderColor: 'transparent' }} />
                 </Grid>
@@ -263,17 +218,13 @@ function App() {
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        // margin: '0 auto', // Center the box within the grid item
                         borderRadius: '5px',
-                      }}
-                    >
+                      }}>
                       <h4>{token.label}</h4>
                     </Box>
                   </Grid>
                 ))}
             </Grid>
-
-
           </div>
         </Container>
       </div>
